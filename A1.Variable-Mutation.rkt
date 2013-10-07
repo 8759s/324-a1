@@ -23,6 +23,12 @@
    • `sequenced` (by uncommenting the `require` below). |#
 #;(require "A1.Sequencing.rkt")
 
+(define-syntax-rule (set!! (oper id var ...))
+ (set! id (oper id var ...)))
+
+(define-syntax-rule (++ x)
+  (+ x 1))
+
 (module+ test
   (define x 108)
   (set!! (- x 90))
