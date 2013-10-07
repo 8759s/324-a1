@@ -22,11 +22,11 @@
  Hint: one of our core forms has as a component a sequence of expessions
   for later evaluation. |#
 
-(define-syntax-rule (sequenced «expression»a «expression»b ... «expression»c)
-  («expression»a «expression»b («expression»c)) )
+(define-syntax-rule (sequenced «expression»a ... )
+  ((λ () «expression»a ... ) ))
 
 
 
 (module+ test
-  (sequenced (+ 4 2) (zero? 5) (zero? 0))
+  (sequenced #f #t)
   )
