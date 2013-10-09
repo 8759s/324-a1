@@ -16,6 +16,16 @@
   expression. |#
 (provide cases)
 
+(define-syntax cases
+  (syntax-rules (when otherwise)
+
+  [(cases [«expression» when «condition»] [«expression»1 otherwise]) (if «condition» «expression» «expression»1 )]
+    
+  [(cases [«expression» when «condition»] [«expression»1 when «condition»1] ... [«expression»2 otherwise] ) 
+   (if «condition» «expression» (cases [«expression»1 when «condition»1] ... [«expression»2 otherwise]))]))
+  
+
+
 #| Implementation.
  The concrete syntax looks more like a common case definition, as follows:
    A condition-result clause is a group of:
@@ -33,10 +43,6 @@
    • The extended `define` (already part of racket's `define`).
    • Code transformation via `define-syntax-rule` or `define-syntax` with
       `syntax-rules`, if necessary. |#
-
-(define-syntax-rule (cases [«result»a when «expression»a] [«result»b when «expression»b] ... [«result» otherwise])
-  ())
-
 
 
 (module+ test
